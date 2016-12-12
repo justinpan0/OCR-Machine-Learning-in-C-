@@ -6,7 +6,6 @@
 //  Copyright © 2016 Pan, Zimeng. All rights reserved.
 //
 
-#include "LinearAlgebra.hpp"
 #include <vector>
 #include <iostream>
 
@@ -14,10 +13,11 @@ using namespace std;
 
 class LinearAlgebra{
 public:
-    static vector <vector <double> > dot(vector <vector <double> > & x, vector <vector <double> > & y){
+    static vector <vector <double> > cross(vector <vector <double> > & x, vector <vector <double> > & y){
+        // Dot product
         unsigned long dim = y.size(), r = x.size(), c = y.at(0).size();
         vector <vector <double> > res(r, vector <double> (c,0));
-        
+
         if(x.at(0).size() != y.size()){
             printf("1:Dimension Does not match!\n");
             cout << dim << " " << r << " " << c << endl;
@@ -38,17 +38,35 @@ public:
         }
         return res;
     }
-    
+
     static vector <vector <double> > sum(vector <vector <double> > & x, vector <vector <double> > & y){
+        // Element-wise summation
         unsigned long rx = x.size(), ry = y.size(), cx = x.at(0).size(), cy = y.at(0).size();
         vector <vector <double> > res(rx, vector <double> (cx,0));
-        
+
         if(rx != ry || cx != cy){
             printf("2: Dimension Does not match!\n");
         } else {
             for(int i = 0; i < rx; i++){
                 for(int j = 0; j < cx; j++){
                     res.at(i).at(j) = x.at(i).at(j) + y.at(i).at(j);
+                }
+            }
+        }
+        return res;
+    }
+
+    static vector <vector <double> > hdot(vector <vector <double> > & x, vector <vector <double> > & y){
+        // Element-wise multiplication
+        unsigned long rx = x.size(), ry = y.size(), cx = x.at(0).size(), cy = y.at(0).size();
+        vector <vector <double> > res(rx, vector <double> (cx,0));
+
+        if(rx != ry || cx != cy){
+            printf("2: Dimension Does not match!\n");
+        } else {
+            for(int i = 0; i < rx; i++){
+                for(int j = 0; j < cx; j++){
+                    res.at(i).at(j) = x.at(i).at(j) * y.at(i).at(j);
                 }
             }
         }
